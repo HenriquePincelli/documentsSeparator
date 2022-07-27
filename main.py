@@ -1,6 +1,7 @@
 import Validator
-import pandas as pd
 from csv import writer
+import os
+import pandas as pd
 import xlsxwriter
 
 
@@ -10,7 +11,7 @@ def appendDataIntoCSV(fileName, data):
     dataList = []
     dataList.append(data)
     # Open the existing file
-    with open(f"C:\\Scripts\\separadorCPFCNPJ\\Retorno\\{fileName}.csv", 'a', newline='') as objectFile:
+    with open(f"{os.getcwd()}\\Saida\\{fileName}.csv", 'a', newline='') as objectFile:
         # Pass this file object to csv.writer()
         objectWriter = writer(objectFile)
         # Pass the list as an argument into the writerow()
@@ -22,7 +23,7 @@ def appendDataIntoCSV(fileName, data):
 # Function to write data into a "XLSX" file
 def writeDataIntoXLSX(fileName, documentList):
     # Create an excel file to store the data
-    workbook = xlsxwriter.Workbook(f"C:\\Scripts\\separadorCPFCNPJ\\Retorno\\{fileName}.xlsx")
+    workbook = xlsxwriter.Workbook(f"{os.getcwd()}\\Saida\\{fileName}.xlsx")
     worksheet = workbook.add_worksheet("Planilha1")
 
     # Loop to fill the file with data
@@ -53,7 +54,7 @@ print("=-=" * 9)
 nFiles = int(input("Digite o número de arquivos que devem ser gerados: "))
 
 # Create dataframe from excel and format it
-df = pd.read_excel('C:\\Scripts\\separadorCPFCNPJ\\Entrada\\Documentos.xlsx', 'Planilha1')
+df = pd.read_excel(f'{os.getcwd()}\\Entrada\\Documentos.xlsx', 'Planilha1')
 
 if nFiles > 1:
     # Slice the dataframe
